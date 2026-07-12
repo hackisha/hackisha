@@ -6,19 +6,19 @@
 
 ### [EMU LOGGER](https://github.com/hackisha/EMU-LOGGER)
 
-EMU Black ECU의 CAN 데이터와 GPS, 가속도 센서 값을 Raspberry Pi에서 함께 수집하는 차량 데이터 로거입니다. SocketCAN, UART, I2C 입력을 각각 분리해 처리하고 CSV 기록, MQTT 전송, 웹 대시보드까지 연결했습니다.
+EMU Black ECU의 CAN 데이터와 GPS, 가속도 센서 값을 같은 시간축으로 수집하는 Raspberry Pi 기반 차량 데이터 로거입니다. 주행 데이터를 CSV로 저장하고 MQTT와 웹 대시보드로 전달해 차량 안팎에서 기록 상태와 주요 정보를 확인할 수 있도록 구성했습니다.
 
 `Python` `SocketCAN` `UART` `I2C` `GPIO` `MQTT`
 
 ### [MF Log Analyzer](https://github.com/hackisha/MF-26)
 
-Formula Student 차량에서 수집한 CSV 로그를 주행 후 확인하기 위한 데스크톱 분석 도구입니다. 차량별 채널과 보정식을 프로필로 관리하고, 로그 진단과 이벤트 탐지, 시계열 및 GPS 시각화, HTML 보고서 생성을 구현했습니다.
+Formula Student 차량에서 수집한 CSV 로그를 주행 후 검토하기 위한 데스크톱 분석 도구입니다. 서로 다른 차량의 채널과 보정식을 프로필로 관리하며, 로그 진단과 이벤트 탐지, 시계열 및 GPS 시각화 결과를 하나의 HTML 보고서로 정리합니다.
 
 `TypeScript` `Electron` `React` `Zustand` `Plotly` `Vitest`
 
 ### Formula Student BSPD 안전회로 · 진행 중
 
-Formula 2026 규정을 비프로그래밍 하드웨어 요구사항으로 바꾸어 설계하고 있습니다. TPS와 브레이크 압력 신호의 범위 및 시간 조건을 comparator, RC delay, fault latch, fail-safe relay로 구현하고 있으며, 회로 블록별 부품 선정 근거와 검증 항목을 함께 기록합니다.
+Formula Student 차량에서 브레이크와 스로틀이 동시에 비정상 상태가 되거나 센서 신호가 손실될 때 구동 계통을 차단하는 독립 안전회로입니다. Formula 2026 규정을 바탕으로 TPS와 브레이크 압력 신호를 감시하고, comparator와 RC delay, fault latch, fail-safe relay만으로 고장을 판단하고 유지하도록 설계하고 있습니다.
 
 `Analog Circuit` `Comparator` `RC Timing` `Fail-safe` `EasyEDA`
 
@@ -26,25 +26,25 @@ Formula 2026 규정을 비프로그래밍 하드웨어 요구사항으로 바꾸
 
 ### [V2X 협력주행](https://github.com/ChungRyeung/26HL_IVS_V2X_CAD)
 
-7인 팀에서 선행차 하드웨어와 주행 SW, 시스템 통합을 담당했습니다. Raspberry Pi 기반 차량에 차선 중심 경로 생성과 Pure Pursuit 제어를 적용했고, 한쪽 차선이 사라지는 코너에서는 학습한 차선 폭으로 가상 중심선을 생성하도록 수정했습니다. DRY 실행, 서보 단독 시험, 실차 주행 순서로 검증했으며 프로젝트는 우수 프로젝트로 선정되었습니다.
+두 대의 Raspberry Pi 기반 주행로봇이 차선과 장애물 정보를 공유해 함께 회피 주행하는 V2X 협력주행 프로젝트입니다. 선행차가 장애물을 인식해 회피 경로를 생성하면 후행차가 전달받은 차선 정보를 이용해 자체 장애물 인식 없이 같은 구간을 주행하도록 구성했습니다.
 
 `Python` `Raspberry Pi` `Pure Pursuit` `UDP/JSON` `System Integration`
 
 ### [CarMaker ADAS Motion Planning & Control](https://github.com/hackisha/MotionPlanningControl)
 
-CarMaker와 Simulink를 연동해 추월, 톨게이트 통과, 주차장 진입과 전후진 주차를 구현한 프로젝트입니다. 미션 상태 관리, 경로 생성, 횡종방향 제어를 구성했습니다. 역주차는 목표 자세까지 도달했지만 전체 경로의 one-lap 조건은 만족하지 못해, 부분 성공과 남은 문제를 함께 기록하고 있습니다.
+CarMaker와 Simulink를 연동해 추월부터 톨게이트 통과, 주차장 진입, 빈 공간 탐색과 전후진 주차까지 하나의 주행 시나리오로 수행하는 프로젝트입니다. 미션 상태에 따라 경로 생성과 횡종방향 제어, 변속 상태를 전환하도록 구성했으며, 현재 역주차는 완료했지만 전체 경로의 one-lap 조건은 추가 개선이 필요합니다.
 
 `MATLAB` `Simulink` `CarMaker` `Motion Planning` `Vehicle Control`
 
 ### UDS OTA 부트로더
 
-AURIX TC234LP 기반 교육용 ECU에서 Boot와 Application 영역을 분리하고 UDS 재프로그래밍 흐름을 구현했습니다. 업데이트 중 기존 Application을 보존하는 이중 메모리 구조와 SHA-256 이미지 검증을 다뤘으며, Linker Script 주소 충돌을 TRACE32로 분석했습니다.
+AURIX TC234LP 기반 교육용 ECU의 소프트웨어를 UDS 서비스로 갱신하는 부트로더 프로젝트입니다. Boot와 Application 영역을 분리하고, 전송 중에는 기존 Application을 보존하는 이중 메모리 구조와 SHA-256 기반 이미지 검증을 적용해 업데이트와 무결성 확인 흐름을 구성했습니다.
 
 `C` `AURIX` `UDS` `EB tresos` `TRACE32` `SHA-256`
 
 ### [CANoe CAPL 블랙박스 테스트](https://github.com/hackisha/mando/tree/main/BLACK_BOX_TESTING_WITH_CANOE)
 
-ECU FailSafe 요구사항을 동등 분할과 경계값 분석으로 테스트 케이스화하고, CANoe/CAPL로 신호 주입과 판정을 자동화했습니다. 보존된 실행 결과에서는 12개 테스트 중 8개가 통과했고, 경계값과 타이밍, 상태 관리 관련 결함을 확인했습니다.
+ECU의 FailSafe 요구사항이 경계값과 시간 조건에 맞게 동작하는지 검증하는 블랙박스 테스트 프로젝트입니다. 요구사항을 동등 분할과 경계값 분석으로 테스트 케이스화하고, CANoe/CAPL로 입력 신호 주입부터 응답 관찰과 판정까지 자동화했습니다.
 
 `CANoe` `CAPL` `CAN` `Black-box Testing` `EP/BVA`
 
@@ -57,7 +57,3 @@ ECU FailSafe 요구사항을 동등 분할과 경계값 분석으로 테스트 �
 - 차량 제어와 시스템 통합
 - Fail-safe 설계와 테스트 자동화
 - 차량 데이터 수집 및 분석
-
----
-
-프로젝트 저장소에는 결과만 보여주기보다 구현 과정에서 내린 선택, 확인한 문제, 남은 한계를 함께 남기려고 합니다.
