@@ -1,4 +1,4 @@
-<img width="2559" height="1391" alt="image" src="https://github.com/user-attachments/assets/f1d96b3b-cae5-4b0c-9b27-9509d78010f2" /># 전성빈
+# 안녕하세요
 
 자작차 동아리 데이터로거 개발을 시작으로 차량용 임베디드 SW 개발자를 꿈꾸는 전성빈입니다.
 
