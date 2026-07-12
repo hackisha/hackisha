@@ -42,7 +42,7 @@ AURIX TC234LP 기반 교육용 ECU의 소프트웨어를 UDS 서비스로 갱신
 
 `C` `AURIX` `UDS` `EB tresos` `TRACE32` `SHA-256`
 
-### [CANoe CAPL 블랙박스 테스트](https://github.com/hackisha/mando/tree/main/BLACK_BOX_TESTING_WITH_CANOE)
+### [CANoe CAPL 블랙박스 테스트](https://github.com/hackisha/IVS/tree/main/BLACK_BOX_TESTING_WITH_CANOE)
 
 ECU의 FailSafe 요구사항이 경계값과 시간 조건에 맞게 동작하는지 검증하는 블랙박스 테스트 프로젝트입니다. 요구사항을 동등 분할과 경계값 분석으로 테스트 케이스화하고, CANoe/CAPL로 입력 신호 주입부터 응답 관찰과 판정까지 자동화했습니다.
 
