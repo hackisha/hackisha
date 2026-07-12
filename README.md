@@ -1,16 +1,8 @@
 # 전성빈
 
-차량용 임베디드 SW 개발자를 꿈꾸는 전성빈입니다.
+자작차 동아리 데이터로거 개발을 시작으로 차량용 임베디드 SW 개발자를 꿈꾸는 전성빈입니다.
 
-차량 ECU와 센서에서 들어오는 신호를 읽고, 제어와 기록, 분석으로 이어지는 시스템을 만들어 왔습니다. 이 페이지에는 지금까지 진행한 프로젝트와 공부한 내용을 간단히 정리합니다.
-
-## 해온 프로젝트
-
-### [V2X 협력주행](https://github.com/ChungRyeung/26HL_IVS_V2X_CAD)
-
-7인 팀에서 선행차 하드웨어와 주행 SW, 시스템 통합을 담당했습니다. Raspberry Pi 기반 차량에 차선 중심 경로 생성과 Pure Pursuit 제어를 적용했고, 한쪽 차선이 사라지는 코너에서는 학습한 차선 폭으로 가상 중심선을 생성하도록 수정했습니다. DRY 실행, 서보 단독 시험, 실차 주행 순서로 검증했으며 프로젝트는 우수 프로젝트로 선정되었습니다.
-
-`Python` `Raspberry Pi` `Pure Pursuit` `UDP/JSON` `System Integration`
+## 자작차 동아리 활동
 
 ### [EMU LOGGER](https://github.com/hackisha/EMU-LOGGER)
 
@@ -23,6 +15,20 @@ EMU Black ECU의 CAN 데이터와 GPS, 가속도 센서 값을 Raspberry Pi에�
 Formula Student 차량에서 수집한 CSV 로그를 주행 후 확인하기 위한 데스크톱 분석 도구입니다. 차량별 채널과 보정식을 프로필로 관리하고, 로그 진단과 이벤트 탐지, 시계열 및 GPS 시각화, HTML 보고서 생성을 구현했습니다.
 
 `TypeScript` `Electron` `React` `Zustand` `Plotly` `Vitest`
+
+### Formula Student BSPD 안전회로 · 진행 중
+
+Formula 2026 규정을 비프로그래밍 하드웨어 요구사항으로 바꾸어 설계하고 있습니다. TPS와 브레이크 압력 신호의 범위 및 시간 조건을 comparator, RC delay, fault latch, fail-safe relay로 구현하고 있으며, 회로 블록별 부품 선정 근거와 검증 항목을 함께 기록합니다.
+
+`Analog Circuit` `Comparator` `RC Timing` `Fail-safe` `EasyEDA`
+
+## HL만도·HL클레무브 IVS 교육
+
+### [V2X 협력주행](https://github.com/ChungRyeung/26HL_IVS_V2X_CAD)
+
+7인 팀에서 선행차 하드웨어와 주행 SW, 시스템 통합을 담당했습니다. Raspberry Pi 기반 차량에 차선 중심 경로 생성과 Pure Pursuit 제어를 적용했고, 한쪽 차선이 사라지는 코너에서는 학습한 차선 폭으로 가상 중심선을 생성하도록 수정했습니다. DRY 실행, 서보 단독 시험, 실차 주행 순서로 검증했으며 프로젝트는 우수 프로젝트로 선정되었습니다.
+
+`Python` `Raspberry Pi` `Pure Pursuit` `UDP/JSON` `System Integration`
 
 ### [CarMaker ADAS Motion Planning & Control](https://github.com/hackisha/MotionPlanningControl)
 
@@ -42,13 +48,9 @@ ECU FailSafe 요구사항을 동등 분할과 경계값 분석으로 테스트 �
 
 `CANoe` `CAPL` `CAN` `Black-box Testing` `EP/BVA`
 
-### Formula Student BSPD 안전회로 · 진행 중
+## 기타
 
-Formula 2026 규정을 비프로그래밍 하드웨어 요구사항으로 바꾸어 설계하고 있습니다. TPS와 브레이크 압력 신호의 범위 및 시간 조건을 comparator, RC delay, fault latch, fail-safe relay로 구현하고 있으며, 회로 블록별 부품 선정 근거와 검증 항목을 함께 기록합니다.
-
-`Analog Circuit` `Comparator` `RC Timing` `Fail-safe` `EasyEDA`
-
-## 관심 분야
+### 관심 분야
 
 - 차량용 임베디드 SW와 ECU Basic Software
 - CAN, UDS, AUTOSAR MCAL
