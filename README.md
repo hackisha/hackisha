@@ -27,17 +27,6 @@ Formula Student 차량에서 브레이크와 스로틀이 동시에 비정상 �
 
 ## HL만도·HL클레무브 IVS 교육
 
-### [V2X 협력주행](https://github.com/ChungRyeung/26HL_IVS_V2X_CAD)
-
-두 대의 Raspberry Pi 기반 주행로봇이 차선과 장애물 정보를 공유해 함께 회피 주행하는 V2X 협력주행 프로젝트입니다. 선행차가 장애물을 인식해 회피 경로를 생성하면 후행차가 전달받은 차선 정보를 이용해 자체 장애물 인식 없이 같은 구간을 주행하도록 구성했습니다.
-
-`Python` `Raspberry Pi` `Pure Pursuit` `UDP/JSON` `System Integration`
-
-### [CarMaker ADAS Motion Planning & Control](https://github.com/hackisha/MotionPlanningControl)
-
-CarMaker와 Simulink를 연동해 추월부터 톨게이트 통과, 주차장 진입, 빈 공간 탐색과 전후진 주차까지 하나의 주행 시나리오로 수행하는 프로젝트입니다. 미션 상태에 따라 경로 생성과 횡종방향 제어, 변속 상태를 전환하도록 구성했으며, 현재 역주차는 완료했지만 전체 경로의 one-lap 조건은 추가 개선이 필요합니다.
-
-`MATLAB` `Simulink` `CarMaker` `Motion Planning` `Vehicle Control`
 
 ### UDS OTA 부트로더
 
@@ -46,10 +35,27 @@ AURIX TC234LP 기반 교육용 ECU의 소프트웨어를 UDS 서비스로 갱신
 `C` `AURIX` `UDS` `EB tresos` `TRACE32` `SHA-256`
 
 ### [CANoe CAPL 블랙박스 테스트](https://github.com/hackisha/IVS/tree/main/BLACK_BOX_TESTING_WITH_CANOE)
+<img width="869" height="517" alt="image" src="https://github.com/user-attachments/assets/a0e93772-8427-4750-a2a9-2ee1c265162d" />
 
 ECU의 FailSafe 요구사항이 경계값과 시간 조건에 맞게 동작하는지 검증하는 블랙박스 테스트 프로젝트입니다. 요구사항을 동등 분할과 경계값 분석으로 테스트 케이스화하고, CANoe/CAPL로 입력 신호 주입부터 응답 관찰과 판정까지 자동화했습니다.
 
 `CANoe` `CAPL` `CAN` `Black-box Testing` `EP/BVA`
+
+### [V2X 협력주행](https://github.com/ChungRyeung/26HL_IVS_V2X_CAD)
+<img width="1809" height="2160" alt="image" src="https://github.com/user-attachments/assets/a8d93f73-e0d7-49d8-8553-baee16383e44" />
+<img width="2415" height="1238" alt="image" src="https://github.com/user-attachments/assets/d3544384-6655-45e6-9b38-fa5684e53a8d" />
+
+두 대의 Raspberry Pi 기반 주행로봇이 차선과 장애물 정보를 공유해 함께 회피 주행하는 V2X 협력주행 프로젝트입니다. 선행차가 장애물을 인식해 회피 경로를 생성하면 후행차가 전달받은 차선 정보를 이용해 자체 장애물 인식 없이 같은 구간을 주행하도록 구성했습니다.
+
+`Python` `Raspberry Pi` `Pure Pursuit` `UDP/JSON` `System Integration`
+
+### [CarMaker ADAS Motion Planning & Control](https://github.com/hackisha/MotionPlanningControl)
+<img width="2559" height="1356" alt="image" src="https://github.com/user-attachments/assets/9628b34d-832d-4044-8ae7-01eee8138d9e" />
+
+CarMaker와 Simulink를 연동해 추월부터 톨게이트 통과, 주차장 진입, 빈 공간 탐색과 전후진 주차까지 하나의 주행 시나리오로 수행하는 프로젝트입니다. 미션 상태에 따라 경로 생성과 횡종방향 제어, 변속 상태를 전환하도록 구성했습니다.
+
+`MATLAB` `Simulink` `CarMaker` `Motion Planning` `Vehicle Control`
+
 
 ## 기타
 
