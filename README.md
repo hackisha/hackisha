@@ -1,113 +1,61 @@
-<div align="center">
+# 전성빈
 
-# hackisha
+차량용 임베디드 SW 개발자를 꿈꾸는 전성빈입니다.
 
-### Automotive Embedded Software Developer
+차량 ECU와 센서에서 들어오는 신호를 읽고, 제어와 기록, 분석으로 이어지는 시스템을 만들어 왔습니다. 이 페이지에는 지금까지 진행한 프로젝트와 공부한 내용을 간단히 정리합니다.
 
-차량의 신호를 코드로 읽고, 센서와 제어기를 연결해 실제로 움직이는 시스템을 만듭니다.
+## 해온 프로젝트
 
-`CAN` `SocketCAN` `Raspberry Pi` `Python` `Embedded I/O` `Vehicle Data`
+### [V2X 협력주행](https://github.com/ChungRyeung/26HL_IVS_V2X_CAD)
 
-</div>
+7인 팀에서 선행차 하드웨어와 주행 SW, 시스템 통합을 담당했습니다. Raspberry Pi 기반 차량에 차선 중심 경로 생성과 Pure Pursuit 제어를 적용했고, 한쪽 차선이 사라지는 코너에서는 학습한 차선 폭으로 가상 중심선을 생성하도록 수정했습니다. DRY 실행, 서보 단독 시험, 실차 주행 순서로 검증했으며 프로젝트는 우수 프로젝트로 선정되었습니다.
 
----
+`Python` `Raspberry Pi` `Pure Pursuit` `UDP/JSON` `System Integration`
 
-## About Me
+### [EMU LOGGER](https://github.com/hackisha/EMU-LOGGER)
 
-차량에서 발생하는 신호를 읽고 필요한 값으로 변환한 뒤, 저장하거나 다른 장치로 전달하는 작업을 해왔습니다.
+EMU Black ECU의 CAN 데이터와 GPS, 가속도 센서 값을 Raspberry Pi에서 함께 수집하는 차량 데이터 로거입니다. SocketCAN, UART, I2C 입력을 각각 분리해 처리하고 CSV 기록, MQTT 전송, 웹 대시보드까지 연결했습니다.
 
-CAN 프레임 파싱부터 UART와 I2C 센서 연동, GPIO 상태 제어, Raspberry Pi 기반 데이터 로거까지 직접 연결했습니다. 수집한 데이터가 실제 개발에 다시 쓰일 수 있도록 차량 로그 분석 도구도 함께 만들고 있습니다.
+`Python` `SocketCAN` `UART` `I2C` `GPIO` `MQTT`
 
-현재는 **차량용 임베디드 소프트웨어와 하드웨어 인터페이스를 이해하고, 기능 단위 코드를 전체 시스템으로 연결하는 개발자**를 목표로 합니다.
+### [MF Log Analyzer](https://github.com/hackisha/MF-26)
 
-## What I Have Built
+Formula Student 차량에서 수집한 CSV 로그를 주행 후 확인하기 위한 데스크톱 분석 도구입니다. 차량별 채널과 보정식을 프로필로 관리하고, 로그 진단과 이벤트 탐지, 시계열 및 GPS 시각화, HTML 보고서 생성을 구현했습니다.
 
-### 1. 차량 신호를 읽는 코드
+`TypeScript` `Electron` `React` `Zustand` `Plotly` `Vitest`
 
-- SocketCAN으로 ECU의 CAN 프레임 수신
-- 바이트 배열의 endian, signed 여부, scale을 반영해 RPM, TPS, 온도, 압력, 기어 등으로 변환
-- CAN 수신과 파싱을 worker로 분리해 메인 로직이 프레임 형식에 직접 의존하지 않도록 구성
-- 필요한 데이터를 별도 CAN ID로 다시 송신하는 흐름 구현
+### [CarMaker ADAS Motion Planning & Control](https://github.com/hackisha/MotionPlanningControl)
 
-### 2. 차량과 센서를 연결하는 임베디드 시스템
+CarMaker와 Simulink를 연동해 추월, 톨게이트 통과, 주차장 진입과 전후진 주차를 구현한 프로젝트입니다. 미션 상태 관리, 경로 생성, 횡종방향 제어를 구성했습니다. 역주차는 목표 자세까지 도달했지만 전체 경로의 one-lap 조건은 만족하지 못해, 부분 성공과 남은 문제를 함께 기록하고 있습니다.
 
-- Raspberry Pi에서 CAN, GPS, 가속도 센서를 각각 독립된 worker로 구성
-- UART 기반 NMEA GPS와 I2C 기반 ADXL345 데이터 처리
-- GPIO 버튼으로 로깅 상태를 전환하고 LED로 기록, 오류, 네트워크 상태 표시
-- 종료 신호 발생 시 스레드, 파일, CAN, MQTT, GPIO 자원을 순서대로 정리
+`MATLAB` `Simulink` `CarMaker` `Motion Planning` `Vehicle Control`
 
-### 3. 수집한 데이터를 활용하는 도구
+### UDS OTA 부트로더
 
-- CAN과 센서 데이터를 공통 CSV 및 JSON 구조로 통합
-- 로컬 CSV 기록과 MQTT 텔레메트리 전송을 서로 다른 주기로 분리
-- Flask-SocketIO 웹 화면에서 차량 상태를 실시간으로 표시
-- Electron 데스크톱 도구에서 CSV 채널 매핑, 그래프, 이벤트 구간, HTML 보고서 구성
+AURIX TC234LP 기반 교육용 ECU에서 Boot와 Application 영역을 분리하고 UDS 재프로그래밍 흐름을 구현했습니다. 업데이트 중 기존 Application을 보존하는 이중 메모리 구조와 SHA-256 이미지 검증을 다뤘으며, Linker Script 주소 충돌을 TRACE32로 분석했습니다.
 
-## System Flow
+`C` `AURIX` `UDS` `EB tresos` `TRACE32` `SHA-256`
 
-```text
-ECU / GPS / Accelerometer
-            ↓
-CAN / UART / I2C Interface
-            ↓
-Raspberry Pi Embedded Software
-            ↓
-Parsing / State Integration / GPIO Control
-            ↓
-CSV Logging / MQTT Telemetry
-            ↓
-Web Dashboard / Desktop Analysis Tool
-```
+### [CANoe CAPL 블랙박스 테스트](https://github.com/hackisha/mando/tree/main/BLACK_BOX_TESTING_WITH_CANOE)
 
-단일 기능을 따로 구현하는 데서 끝내지 않고, 차량 입력이 저장과 화면까지 이어지는 전체 흐름을 코드로 연결했습니다.
+ECU FailSafe 요구사항을 동등 분할과 경계값 분석으로 테스트 케이스화하고, CANoe/CAPL로 신호 주입과 판정을 자동화했습니다. 보존된 실행 결과에서는 12개 테스트 중 8개가 통과했고, 경계값과 타이밍, 상태 관리 관련 결함을 확인했습니다.
 
-## Vehicle Embedded Projects
+`CANoe` `CAPL` `CAN` `Black-box Testing` `EP/BVA`
 
-### 🚗 [EMU-LOGGER](https://github.com/hackisha/EMU-LOGGER)
+### Formula Student BSPD 안전회로 · 진행 중
 
-> EMU BLACK ECU의 CAN 데이터와 GPS, 가속도 센서를 통합한 Raspberry Pi 기반 차량 데이터 로거
+Formula 2026 규정을 비프로그래밍 하드웨어 요구사항으로 바꾸어 설계하고 있습니다. TPS와 브레이크 압력 신호의 범위 및 시간 조건을 comparator, RC delay, fault latch, fail-safe relay로 구현하고 있으며, 회로 블록별 부품 선정 근거와 검증 항목을 함께 기록합니다.
 
-**주요 개발 내용**
+`Analog Circuit` `Comparator` `RC Timing` `Fail-safe` `EasyEDA`
 
-- `0x600`부터 `0x607`까지의 EMU CAN 프레임 파싱
-- GPS와 ADXL345 센서를 CAN 데이터와 같은 기록 구조로 통합
-- GPIO 버튼과 상태 LED를 포함한 현장 로깅 흐름 구성
-- CSV 저장, MQTT 전송, Flask-SocketIO 대시보드 연결
-- 데이터 로거 PCB 자료와 Arduino 랩타이머 코드 정리
+## 관심 분야
 
-**기술:** `Python` `Linux SocketCAN` `UART` `I2C` `GPIO` `MQTT` `Flask-SocketIO`
-
-**[프로젝트 개발 과정 보기 →](https://github.com/hackisha/EMU-LOGGER)**
+- 차량용 임베디드 SW와 ECU Basic Software
+- CAN, UDS, AUTOSAR MCAL
+- 차량 제어와 시스템 통합
+- Fail-safe 설계와 테스트 자동화
+- 차량 데이터 수집 및 분석
 
 ---
 
-### 📈 [MF-26](https://github.com/hackisha/MF-26)
-
-> 차량에서 수집한 CSV 로그를 엔지니어가 다시 확인하고 활용할 수 있도록 만든 데스크톱 분석 도구
-
-**주요 개발 내용**
-
-- 차량별 CSV 채널 이름과 보정식을 프로필로 관리
-- 속도, RPM, 온도, 압력, 가속도, GPS 데이터를 같은 세션에서 확인
-- 시계열 그래프, G-G 분포, GPS 경로와 이벤트 구간 표시
-- 분석 내용을 HTML 보고서로 저장
-- 대용량 로그 처리 과정에서 집계 방식과 화면 렌더링 구조 개선
-
-**기술:** `TypeScript` `Electron` `React` `Zustand` `Plotly`
-
-**[프로젝트 코드 보기 →](https://github.com/hackisha/MF-26)**
-
-## 개발할 때 중요하게 보는 것
-
-- 데이터가 어디에서 들어오고 어떤 단위를 가지는지 먼저 확인합니다.
-- 장치별 코드를 분리하고, 메인 흐름에서는 공통 인터페이스로 다룹니다.
-- 차량에서 남긴 데이터가 이후 분석과 개선으로 이어지도록 구조를 설계합니다.
-- 구현 과정에서 발생한 문제와 선택 이유를 코드와 문서에 함께 남깁니다.
-
----
-
-<div align="center">
-
-**Vehicle Signal → Embedded Software → Data Utilization**
-
-</div>
+프로젝트 저장소에는 결과만 보여주기보다 구현 과정에서 내린 선택, 확인한 문제, 남은 한계를 함께 남기려고 합니다.
