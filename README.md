@@ -1,22 +1,25 @@
-# 전성빈
+<img width="2559" height="1391" alt="image" src="https://github.com/user-attachments/assets/f1d96b3b-cae5-4b0c-9b27-9509d78010f2" /># 전성빈
 
 자작차 동아리 데이터로거 개발을 시작으로 차량용 임베디드 SW 개발자를 꿈꾸는 전성빈입니다.
 
 ## 자작차 동아리 활동
 
 ### [EMU LOGGER](https://github.com/hackisha/EMU-LOGGER)
+<img width="1080" height="745" alt="image" src="https://github.com/user-attachments/assets/f171d1c5-e8be-448f-9e02-eb798c778eba" />
 
 EMU Black ECU의 CAN 데이터와 GPS, 가속도 센서 값을 같은 시간축으로 수집하는 Raspberry Pi 기반 차량 데이터 로거입니다. 주행 데이터를 CSV로 저장하고 MQTT와 웹 대시보드로 전달해 차량 안팎에서 기록 상태와 주요 정보를 확인할 수 있도록 구성했습니다.
 
 `Python` `SocketCAN` `UART` `I2C` `GPIO` `MQTT`
 
 ### [MF Log Analyzer](https://github.com/hackisha/MF-26)
+<img width="2559" height="1391" alt="image" src="https://github.com/user-attachments/assets/52c4a73b-7f14-4efb-b71a-9f155fa1a9a0" />
 
 Formula Student 차량에서 수집한 CSV 로그를 주행 후 검토하기 위한 데스크톱 분석 도구입니다. 서로 다른 차량의 채널과 보정식을 프로필로 관리하며, 로그 진단과 이벤트 탐지, 시계열 및 GPS 시각화 결과를 하나의 HTML 보고서로 정리합니다.
 
 `TypeScript` `Electron` `React` `Zustand` `Plotly` `Vitest`
 
 ### Formula Student BSPD 안전회로 · 진행 중
+<img width="780" height="777" alt="image" src="https://github.com/user-attachments/assets/d80c0453-25ba-46f6-a9f0-186e13c1ceaf" />
 
 Formula Student 차량에서 브레이크와 스로틀이 동시에 비정상 상태가 되거나 센서 신호가 손실될 때 구동 계통을 차단하는 독립 안전회로입니다. Formula 2026 규정을 바탕으로 TPS와 브레이크 압력 신호를 감시하고, comparator와 RC delay, fault latch, fail-safe relay만으로 고장을 판단하고 유지하도록 설계하고 있습니다.
 
