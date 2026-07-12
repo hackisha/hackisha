@@ -2,94 +2,112 @@
 
 # hackisha
 
-### Automotive Embedded SW Developer
+### Automotive Embedded Software Developer
 
-차량의 데이터를 **수집하고, 저장하고, 전달하고, 분석하는** 소프트웨어를 만듭니다.
+차량의 신호를 코드로 읽고, 센서와 제어기를 연결해 실제로 움직이는 시스템을 만듭니다.
 
-[Selected Projects](#selected-projects) | [Development Flow](#development-flow) | [Engineering Approach](#engineering-approach)
+`CAN` `SocketCAN` `Raspberry Pi` `Python` `Embedded I/O` `Vehicle Data`
 
 </div>
 
 ---
 
-## About
+## About Me
 
-Raspberry Pi와 Linux SocketCAN으로 차량 CAN 및 센서 데이터를 수집하고, 데스크톱 애플리케이션에서 주행 로그를 분석하고 시각화하는 과정을 경험했습니다.
+차량에서 발생하는 신호를 읽고 필요한 값으로 변환한 뒤, 저장하거나 다른 장치로 전달하는 작업을 해왔습니다.
 
-하드웨어에서 시작하는 데이터 수집부터 CSV 기록, MQTT 전달, 로그 진단과 보고서 생성까지 하나의 흐름으로 연결하는 데 관심이 있습니다.
+CAN 프레임 파싱부터 UART와 I2C 센서 연동, GPIO 상태 제어, Raspberry Pi 기반 데이터 로거까지 직접 연결했습니다. 수집한 데이터가 실제 개발에 다시 쓰일 수 있도록 차량 로그 분석 도구도 함께 만들고 있습니다.
 
-## What I Build
+현재는 **차량용 임베디드 소프트웨어와 하드웨어 인터페이스를 이해하고, 기능 단위 코드를 전체 시스템으로 연결하는 개발자**를 목표로 합니다.
 
-| Vehicle Data Acquisition | Telemetry Pipeline | Log Analysis |
-| --- | --- | --- |
-| CAN 프레임 파싱 | CSV 데이터 기록 | 차량 프로필 기반 채널 매핑 |
-| GPS 및 가속도 센서 통합 | MQTT 실시간 전송 | 진단 및 이벤트 규칙 |
-| Raspberry Pi GPIO 제어 | Flask-SocketIO 중계 | 시계열, 차량 거동, GPS 시각화 |
+## What I Have Built
 
-## Development Flow
+### 1. 차량 신호를 읽는 코드
+
+- SocketCAN으로 ECU의 CAN 프레임 수신
+- 바이트 배열의 endian, signed 여부, scale을 반영해 RPM, TPS, 온도, 압력, 기어 등으로 변환
+- CAN 수신과 파싱을 worker로 분리해 메인 로직이 프레임 형식에 직접 의존하지 않도록 구성
+- 필요한 데이터를 별도 CAN ID로 다시 송신하는 흐름 구현
+
+### 2. 차량과 센서를 연결하는 임베디드 시스템
+
+- Raspberry Pi에서 CAN, GPS, 가속도 센서를 각각 독립된 worker로 구성
+- UART 기반 NMEA GPS와 I2C 기반 ADXL345 데이터 처리
+- GPIO 버튼으로 로깅 상태를 전환하고 LED로 기록, 오류, 네트워크 상태 표시
+- 종료 신호 발생 시 스레드, 파일, CAN, MQTT, GPIO 자원을 순서대로 정리
+
+### 3. 수집한 데이터를 활용하는 도구
+
+- CAN과 센서 데이터를 공통 CSV 및 JSON 구조로 통합
+- 로컬 CSV 기록과 MQTT 텔레메트리 전송을 서로 다른 주기로 분리
+- Flask-SocketIO 웹 화면에서 차량 상태를 실시간으로 표시
+- Electron 데스크톱 도구에서 CSV 채널 매핑, 그래프, 이벤트 구간, HTML 보고서 구성
+
+## System Flow
 
 ```text
-Vehicle & Sensors
-        ↓
-CAN / GPS / Accelerometer
-        ↓
-Raspberry Pi Data Logger
-        ↓
-CSV Storage + MQTT Telemetry
-        ↓
-Web Dashboard + Desktop Log Analyzer
+ECU / GPS / Accelerometer
+            ↓
+CAN / UART / I2C Interface
+            ↓
+Raspberry Pi Embedded Software
+            ↓
+Parsing / State Integration / GPIO Control
+            ↓
+CSV Logging / MQTT Telemetry
+            ↓
+Web Dashboard / Desktop Analysis Tool
 ```
 
-수집 장치별 입력을 분리하고, 공통 데이터 구조로 합친 뒤 저장과 전송을 나눕니다. 기록된 데이터는 다시 프로필 매핑, 진단 규칙, 시각화와 보고서 생성으로 이어집니다.
+단일 기능을 따로 구현하는 데서 끝내지 않고, 차량 입력이 저장과 화면까지 이어지는 전체 흐름을 코드로 연결했습니다.
 
-## Selected Projects
+## Vehicle Embedded Projects
 
 ### 🚗 [EMU-LOGGER](https://github.com/hackisha/EMU-LOGGER)
 
-> 차량 ECU의 CAN 데이터와 GPS, 가속도 센서를 함께 수집해 CSV와 실시간 텔레메트리로 전달하는 Raspberry Pi 데이터 로거
+> EMU BLACK ECU의 CAN 데이터와 GPS, 가속도 센서를 통합한 Raspberry Pi 기반 차량 데이터 로거
 
-`Python` `Raspberry Pi` `Linux SocketCAN` `GPS` `ADXL345` `MQTT` `Flask-SocketIO`
+**주요 개발 내용**
 
-- EMU CAN 프레임을 RPM, TPS, 온도, 압력, 기어 등 물리량으로 변환
-- CAN, GPS, 3축 가속도 worker를 분리하고 최신 상태를 하나의 CSV 및 JSON 구조로 통합
-- GPIO 버튼과 LED로 현장 로깅 상태 제어
-- MQTT와 Flask-SocketIO를 연결해 웹 대시보드로 텔레메트리 전달
+- `0x600`부터 `0x607`까지의 EMU CAN 프레임 파싱
+- GPS와 ADXL345 센서를 CAN 데이터와 같은 기록 구조로 통합
+- GPIO 버튼과 상태 LED를 포함한 현장 로깅 흐름 구성
+- CSV 저장, MQTT 전송, Flask-SocketIO 대시보드 연결
+- 데이터 로거 PCB 자료와 Arduino 랩타이머 코드 정리
 
-**[개발 과정과 코드 보기 →](https://github.com/hackisha/EMU-LOGGER)**
+**기술:** `Python` `Linux SocketCAN` `UART` `I2C` `GPIO` `MQTT` `Flask-SocketIO`
+
+**[프로젝트 개발 과정 보기 →](https://github.com/hackisha/EMU-LOGGER)**
 
 ---
 
-### 📊 [MF-26](https://github.com/hackisha/MF-26)
+### 📈 [MF-26](https://github.com/hackisha/MF-26)
 
-> 차량 CSV 로그를 프로필에 맞게 해석하고 진단, 이벤트 탐지, 시각화와 HTML 보고서로 연결하는 데스크톱 분석 도구
+> 차량에서 수집한 CSV 로그를 엔지니어가 다시 확인하고 활용할 수 있도록 만든 데스크톱 분석 도구
 
-`Electron` `TypeScript` `React` `Zustand` `Plotly` `Vitest` `Playwright`
+**주요 개발 내용**
 
-- CSV 채널 별칭과 보정식을 차량 프로필로 관리
-- 누락 및 비수치 채널, 타임스탬프, 전압, 센서 스케일을 진단 규칙으로 확인
-- 시계열, G-G, GPS 경로와 이벤트 구간을 분석 화면으로 구성
-- 선택한 분석 결과를 HTML 보고서로 생성하고 자동화 테스트로 주요 흐름 확인
+- 차량별 CSV 채널 이름과 보정식을 프로필로 관리
+- 속도, RPM, 온도, 압력, 가속도, GPS 데이터를 같은 세션에서 확인
+- 시계열 그래프, G-G 분포, GPS 경로와 이벤트 구간 표시
+- 분석 내용을 HTML 보고서로 저장
+- 대용량 로그 처리 과정에서 집계 방식과 화면 렌더링 구조 개선
 
-**[분석 기능과 코드 보기 →](https://github.com/hackisha/MF-26)**
+**기술:** `TypeScript` `Electron` `React` `Zustand` `Plotly`
 
-## Engineering Approach
+**[프로젝트 코드 보기 →](https://github.com/hackisha/MF-26)**
 
-```text
-실제 입력 구조를 확인한다
-→ 장치와 기능의 경계를 나눈다
-→ 데이터 흐름을 코드로 연결한다
-→ 테스트와 실행 결과로 동작을 확인한다
-→ 남은 한계와 다음 개선점을 기록한다
-```
+## 개발할 때 중요하게 보는 것
 
-- 하드웨어 의존 코드와 데이터 처리, 사용자 화면을 분리합니다.
-- 구현 과정의 선택 이유와 시행착오를 README와 코드에 함께 남깁니다.
-- 공개 가능한 코드와 근거가 확인된 내용만 포트폴리오에 소개합니다.
+- 데이터가 어디에서 들어오고 어떤 단위를 가지는지 먼저 확인합니다.
+- 장치별 코드를 분리하고, 메인 흐름에서는 공통 인터페이스로 다룹니다.
+- 차량에서 남긴 데이터가 이후 분석과 개선으로 이어지도록 구조를 설계합니다.
+- 구현 과정에서 발생한 문제와 선택 이유를 코드와 문서에 함께 남깁니다.
 
 ---
 
 <div align="center">
 
-**Vehicle Data Acquisition → Telemetry → Analysis**
+**Vehicle Signal → Embedded Software → Data Utilization**
 
 </div>
